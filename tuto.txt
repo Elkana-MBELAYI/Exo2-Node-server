@@ -1,0 +1,37 @@
+#Pre-requis 
+#Autoriser le port 5000 dans le security groupe dans l'instance
+
+# Installer curl 
+sudo yum -y install curl
+
+# Procedure d'installation de node.js 
+# installer le gestionnaire de node (Fast Node Manager)
+curl -fsSL https://fnm.vercel.app/install | bash
+source /home/ec2-user/.bashrc
+
+# download and install Node.js
+fnm use --install-if-missing 20
+
+#Verifie la bonne version de Node.js 
+node -v # should print `v20.15.0`
+
+# verifies the right NPM version is in the environment
+npm -v # should print `10.7.0`
+
+#on revient au home 
+cd ~
+# on install la bibliotechque express
+npm install express
+
+# on cree le fichier serveur qui va contenir les deux routes ( :5000/home, et :5000/help)
+nano server.js
+
+# on cree le page index.html qui va afficher les deux routes 
+nano index.html
+
+# on lance le serveur en background + la journalisation
+node server.js >> journal.log & 
+
+# on monitore le journal 
+tail -f journal.log 
+
